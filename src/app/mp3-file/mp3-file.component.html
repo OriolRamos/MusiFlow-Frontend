@@ -1,1 +1,32 @@
-<p>mp3-file works!</p>
+<div class="container mt-4">
+  <!-- Barra superior amb l'opció de penjar i recarregar -->
+  <div class="action-bar d-flex justify-content-between align-items-center p-3 mb-4">
+    <h2 class="title">Les teves cançons</h2>
+    <div class="d-flex gap-3">
+      <input type="file" (change)="onFileSelected($event)" class="form-control-file" />
+      <button class="btn btn-primary" (click)="uploadFile()">Puja fitxer</button>
+      <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
+    </div>
+  </div>
+
+  <!-- Loader mentre es carreguen les dades -->
+  <div *ngIf="loading" class="loading-container text-center my-5">
+    <p class="loading-text">Carregant dades de la base de dades...</p>
+    <div class="loader"></div>
+  </div>
+
+  <!-- Missatge si no hi ha fitxers disponibles -->
+  <div *ngIf="!loading && mp3Files.length === 0" class="text-center my-5">
+    <p class="no-files">No hi ha fitxers MP3 disponibles.</p>
+  </div>
+
+  <!-- Llista de fitxers si n'hi ha disponibles -->
+  <ul *ngIf="!loading && mp3Files.length > 0" class="list-group mp3-list">
+    <li *ngFor="let file of mp3Files" class="list-group-item d-flex justify-content-between align-items-center">
+      <span>
+        <strong>{{ file.title }}</strong> - {{ file.artist }} ({{ file.album }}, {{ file.year }})
+      </span>
+      <a [href]="file.fileUrl" target="_blank" class="btn btn-sm btn-outline-primary">Escoltar</a>
+    </li>
+  </ul>
+</div>

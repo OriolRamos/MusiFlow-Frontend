@@ -1,0 +1,83 @@
+/* Estil de la barra d'acció superior */
+.action-bar {
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Estil per a la llista de fitxers */
+.mp3-list .list-group-item {
+  background-color: #f8f9fa;
+  color: #007bff;
+  font-family: 'Poppins', sans-serif;
+  border: none;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  transition: transform 0.2s ease;
+}
+
+.mp3-list .list-group-item:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+/* Botons */
+.btn-primary {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.btn-outline-info {
+  color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-outline-primary {
+  color: #007bff;
+  border-color: #007bff;
+}
+
+/* Loader de càrrega */
+.loading-container .loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid #007bff;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Text de càrrega */
+.loading-text {
+  color: #007bff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.no-files {
+  color: #6c757d;
+  font-weight: 600;
+}
