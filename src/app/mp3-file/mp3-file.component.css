@@ -14,7 +14,7 @@
 
 /* Estil per a la llista de fitxers */
 .mp3-list .list-group-item {
-  background-color: #f8f9fa;
+  background-color: #e3f2fd; /* Color de fons més intens */
   color: #007bff;
   font-family: 'Poppins', sans-serif;
   border: none;
@@ -28,7 +28,7 @@
 }
 
 .mp3-list .list-group-item:hover {
-  background-color: #e9ecef;
+  background-color: #bbdefb; /* Color de fons més clar al passar-hi el cursor */
   transform: translateY(-2px);
 }
 
@@ -48,6 +48,11 @@
 .btn-outline-primary {
   color: #007bff;
   border-color: #007bff;
+}
+
+.btn-outline-danger {
+  color: #dc3545;
+  border-color: #dc3545;
 }
 
 /* Loader de càrrega */

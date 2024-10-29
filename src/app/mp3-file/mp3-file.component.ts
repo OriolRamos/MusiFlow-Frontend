@@ -50,28 +50,26 @@ export class Mp3FileComponent implements OnInit {
 
   // Funció per pujar el fitxer seleccionat al backend
   uploadFile(): void {
-    if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-
-      this.mp3FileService.uploadMp3File(formData).subscribe((file) => {
-        this.mp3Files.push(file); // Afegeix el fitxer pujat a la llista
-        this.selectedFile = null; // Reinicia la selecció de fitxer
-        this.newFile = {
-          id: 0,
-          title: '',
-          artist: '',
-          album: '',
-          year: 0,
-          genre: '',
-          fileUrl: ''
-        }; // Reinicia l'objecte del nou fitxer
-      });
-    }
+    this.mp3FileService.uploadMp3File(this.newFile).subscribe((file) => {
+      this.mp3Files.push(file);
+      this.newFile = { id: 0, title: '', artist: '', album: '', year: 0, genre: '', fileUrl: '' };
+    });
   }
 
   // Funció per recarregar els fitxers des del backend
   reloadFiles(): void {
     this.getMp3Files();
+  }
+
+  // Funció buida per reproduir un fitxer (a implementar)
+  reproduir(file: Mp3File): void {
+    // Implementació futura per reproduir el fitxer
+    console.log('Reproduint:', file);
+  }
+
+  // Funció buida per aturar la reproducció d'un fitxer (a implementar)
+  aturar(file: Mp3File): void {
+    // Implementació futura per aturar el fitxer
+    console.log('Aturant:', file);
   }
 }

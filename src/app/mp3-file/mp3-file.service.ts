@@ -16,7 +16,8 @@ export class Mp3FileService {
     return this.http.get<Mp3File[]>(this.apiUrl);
   }
 
-  uploadMp3File(file: FormData): Observable<Mp3File> {
-    return this.http.post<Mp3File>(this.apiUrl, file);
+  uploadMp3File(fileData: Mp3File): Observable<Mp3File> {
+    return this.http.post<Mp3File>(this.apiUrl, fileData);
   }
+
 }
