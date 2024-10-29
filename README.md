@@ -2,9 +2,20 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
 
-## Development server
+## Executar Servidor Web
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Installar Node.js
+
+- Installar el Cli Angular: npm install -g @angular/cli
+
+- Accedir a la ruta del directori Angular: cd /ruta/del/teu/projecte
+
+- Installa les dependencies del projecte: npm install
+
+- Obre el servidor: ng serve
+
+- Ara pots accedir a la web generada per Angulat a  `http://localhost:4200/`
+
 
 ## Code scaffolding
 
