@@ -1,30 +1,32 @@
 <div class="container mt-4">
-  <!-- Barra superior amb l'opció de penjar i recarregar -->
+  <!-- Action bar with file upload and reload buttons -->
   <div class="action-bar d-flex justify-content-between align-items-center p-3 mb-4">
     <h2 class="title">Les teves cançons</h2>
     <div class="d-flex gap-3">
       <input type="file" (change)="onFileSelected($event)" class="form-control-file" />
-      <button class="btn btn-primary" (click)="uploadFile()">Puja fitxer</button>
       <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
     </div>
   </div>
 
-  <!-- Loader mentre es carreguen les dades -->
+  <!-- Loader while loading data -->
   <div *ngIf="loading" class="loading-container text-center my-5">
     <p class="loading-text">Carregant dades de la base de dades...</p>
     <div class="loader"></div>
   </div>
 
-  <!-- Missatge si no hi ha fitxers disponibles -->
+  <!-- Message if no files are available -->
   <div *ngIf="!loading && mp3Files.length === 0" class="text-center my-5">
     <p class="no-files">No hi ha fitxers MP3 disponibles.</p>
   </div>
 
-  <!-- Llista de fitxers si n'hi ha disponibles -->
+  <!-- List of files if available -->
   <ul *ngIf="!loading && mp3Files.length > 0" class="list-group mp3-list">
     <li *ngFor="let file of mp3Files" class="list-group-item d-flex justify-content-between align-items-center">
       <span>
-        <strong>{{ file.title }}</strong> - {{ file.artist }} ({{ file.album }}, {{ file.year }})
+        <strong>{{ file.title || 'titol desconegut' }}</strong> -
+        {{ file.artist || 'artista desconegut' }}
+        ({{ file.album || 'album desconegut' }}, {{ file.year && file.year !== 0 ? file.year : 'any desconegut' }})
+
       </span>
       <div class="button-group">
         <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
@@ -32,4 +34,37 @@
       </div>
     </li>
   </ul>
+
+  <!-- Error message if file is not valid -->
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Upload form appears only if a valid file is selected -->
+  <form *ngIf="selectedFile" [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
+    <h3>Fitxer seleccionat: {{ selectedFile.name }}</h3>
+    <div class="mt-2">
+      <label>Títol</label>
+      <input formControlName="title" class="form-control" />
+    </div>
+    <div class="mt-2">
+      <label>Artista</label>
+      <input formControlName="artist" class="form-control" />
+    </div>
+    <div class="mt-2">
+      <label>Àlbum</label>
+      <input formControlName="album" class="form-control" />
+    </div>
+    <div class="mt-2">
+      <label>Any</label>
+      <input type="number" formControlName="year" class="form-control" />
+    </div>
+    <div class="mt-2">
+      <label>Gènere</label>
+      <input formControlName="genre" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Puja fitxer</button>
+
+
+  </form>
 </div>

@@ -13,6 +13,7 @@ import {Mp3FileComponent} from './mp3-file/mp3-file.component';
 export class AppComponent {
   uploadForm: FormGroup;
   uploadedFiles: string[] = [];
+  title = 'MusiFlow-Frontend';
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.uploadForm = this.fb.group({
