@@ -6,6 +6,76 @@
       <input type="file" (change)="onFileSelected($event)" class="form-control-file" />
       <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
     </div>
+    <!-- Formulario de carga -->
+    <form
+      *ngIf="selectedFile"
+      [formGroup]="uploadForm"
+      (ngSubmit)="uploadFile()"
+      class="upload-form p-4 rounded shadow-lg mx-auto mt-4"
+      style="max-width: 500px; "
+    >
+      <h3 class="text-center mb-4">Fitxer seleccionat: <strong>{{ selectedFile.name }}</strong></h3>
+
+      <div class="form-group mt-3">
+        <label for="title">Títol</label>
+        <input
+          id="title"
+          formControlName="title"
+          class="form-control"
+          placeholder="Introdueix el títol"
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="artist">Artista</label>
+        <input
+          id="artist"
+          formControlName="artist"
+          class="form-control"
+          placeholder="Introdueix l'artista"
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="album">Àlbum</label>
+        <input
+          id="album"
+          formControlName="album"
+          class="form-control"
+          placeholder="Introdueix l'àlbum"
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="year">Any</label>
+        <input
+          type="number"
+          id="year"
+          formControlName="year"
+          class="form-control"
+          placeholder="Introdueix l'any"
+        />
+      </div>
+
+      <div class="form-group mt-3">
+        <label for="genre">Gènere</label>
+        <input
+          id="genre"
+          formControlName="genre"
+          class="form-control"
+          placeholder="Introdueix el gènere"
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary w-100 mt-4"
+        style="border-radius: 30px;"
+      >
+        Puja fitxer
+      </button>
+    </form>
+
   </div>
 
   <!-- Loader while loading data -->
@@ -31,6 +101,7 @@
       <div class="button-group">
         <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
         <button class="btn btn-sm btn-outline-danger" (click)="aturar(file)">Atura</button>
+        <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
       </div>
     </li>
   </ul>
@@ -40,31 +111,5 @@
     {{ errorMessage }}
   </div>
 
-  <!-- Upload form appears only if a valid file is selected -->
-  <form *ngIf="selectedFile" [formGroup]="uploadForm" (ngSubmit)="uploadFile()">
-    <h3>Fitxer seleccionat: {{ selectedFile.name }}</h3>
-    <div class="mt-2">
-      <label>Títol</label>
-      <input formControlName="title" class="form-control" />
-    </div>
-    <div class="mt-2">
-      <label>Artista</label>
-      <input formControlName="artist" class="form-control" />
-    </div>
-    <div class="mt-2">
-      <label>Àlbum</label>
-      <input formControlName="album" class="form-control" />
-    </div>
-    <div class="mt-2">
-      <label>Any</label>
-      <input type="number" formControlName="year" class="form-control" />
-    </div>
-    <div class="mt-2">
-      <label>Gènere</label>
-      <input formControlName="genre" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Puja fitxer</button>
 
-
-  </form>
 </div>

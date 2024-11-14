@@ -54,7 +54,7 @@ export class Mp3FileComponent implements OnInit {
 
       // Check if the file is an MP3 and if it’s within the 10MB size limit
       const isMp3 = file.type === 'audio/mpeg' || file.name.endsWith('.mp3');
-      const isWithinSizeLimit = file.size <= 10 * 1024 * 1024; // 10MB
+      const isWithinSizeLimit = file.size <= 200 * 1024 * 1024; // 200MB
 
       if (isMp3 && isWithinSizeLimit) {
         this.selectedFile = file;
@@ -64,39 +64,11 @@ export class Mp3FileComponent implements OnInit {
         this.errorMessage = 'El fitxer seleccionat no és un fitxer MP3. Si us plau, selecciona un fitxer vàlid.';
       } else if (!isWithinSizeLimit) {
         this.selectedFile = null;
-        this.errorMessage = 'El fitxer és massa gran. Si us plau, selecciona un fitxer de menys de 10 MB.';
+        this.errorMessage = 'El fitxer és massa gran. Si us plau, selecciona un fitxer de menys de 200 MB.';
       }
     } else {
       this.selectedFile = null;
       this.errorMessage = null;
-    }
-  }
-
-
-  // Funció per pujar el fitxer seleccionat al backend
-  uploadFile(): void {
-    if (this.selectedFile) {
-      const formData = new FormData();
-
-      formData.append('file', this.selectedFile, this.selectedFile.name);
-      formData.append('title', this.uploadForm.get('title')?.value || '');
-      formData.append('artist', this.uploadForm.get('artist')?.value || '');
-      formData.append('album', this.uploadForm.get('album')?.value || '');
-      formData.append('year', this.uploadForm.get('year')?.value?.toString() || '');
-      formData.append('genre', this.uploadForm.get('genre')?.value || '');
-
-      this.mp3FileService.uploadMp3File(formData).subscribe(
-        (file) => {
-          this.mp3Files.push(file);
-          this.uploadForm.reset();
-          this.selectedFile = null;
-        },
-        (error) => {
-          console.error('Upload failed:', error);
-        }
-      );
-    } else {
-      console.error('No file selected.');
     }
   }
 
@@ -117,4 +89,37 @@ export class Mp3FileComponent implements OnInit {
   reloadFiles(): void {
     this.getMp3Files();
   }
+
+  deleteFile(file: Mp3File): void {
+    this.mp3FileService.deleteMp3File(file.id).subscribe(() => {
+      this.mp3Files = this.mp3Files.filter(f => f.id !== file.id); // Elimina el fitxer de la llista local
+    });
+  }
+
+  uploadFile(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+
+      formData.append('file', this.selectedFile, this.selectedFile.name);
+      formData.append('title', this.uploadForm.get('title')?.value || '');
+      formData.append('artist', this.uploadForm.get('artist')?.value || '');
+      formData.append('album', this.uploadForm.get('album')?.value || '');
+      formData.append('year', this.uploadForm.get('year')?.value?.toString() || ''); // Envia "" si és null
+      formData.append('genre', this.uploadForm.get('genre')?.value || '');
+
+      this.mp3FileService.uploadMp3File(formData).subscribe(
+        (file) => {
+          this.mp3Files.push(file);
+          this.uploadForm.reset();
+          this.selectedFile = null;
+        },
+        (error) => {
+          console.error('Upload failed:', error);
+        }
+      );
+    } else {
+      console.error('No file selected.');
+    }
+  }
+
 }

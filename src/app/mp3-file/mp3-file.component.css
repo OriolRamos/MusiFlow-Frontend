@@ -86,3 +86,79 @@
   color: #6c757d;
   font-weight: 600;
 }
+
+/* Estils generals per centrar el formulari a la pàgina */
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f4f4f9;
+  font-family: Arial, sans-serif;
+}
+
+/* Estils per al formulari */
+.upload-form {
+  max-width: 600px;
+  width: 100%;
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+}
+
+/* Estil per al títol del formulari */
+.upload-form h3 {
+  text-align: center;
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Estils per a les etiquetes i els camps de text */
+.upload-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.upload-form label {
+  font-weight: bold;
+  color: #555;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.upload-form input[type="text"],
+.upload-form input[type="number"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.upload-form input[type="text"]:focus,
+.upload-form input[type="number"]:focus {
+  border-color: #009087;
+  outline: none;
+}
+
+/* Estils per al botó de pujar fitxer */
+.upload-form button[type="submit"] {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #009087;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-form button[type="submit"]:hover {
+  background-color: #00796b;
+}
