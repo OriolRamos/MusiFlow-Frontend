@@ -10,6 +10,7 @@ import {Mp3FileComponent} from './mp3-file/mp3-file.component';
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, HttpClientModule, Mp3FileComponent] // Afegeix els mòduls aquí
 })
+
 export class AppComponent {
   uploadForm: FormGroup;
   uploadedFiles: string[] = [];

@@ -15,8 +15,21 @@
 
 .highlight {
   color: #ffc107; /* Color groc brillant */
-  font-weight: 900;
+  font-weight: 600;
   text-shadow: 2px 2px 10px rgba(255, 193, 7, 0.8);
+}
+
+.background {
+  display: block;
+  background: rgb(0,1,0);
+  background: linear-gradient(0deg, rgba(0,1,0,1) 52%, rgba(13,46,17,1) 80%, rgba(19,68,26,1) 93%);
+  background-attachment: fixed;
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Envía el fondo detrás del contenido */
 }
 
 @keyframes shine {
