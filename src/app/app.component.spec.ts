@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { CommonModule } from '@angular/common';  // Importa CommonModule
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {

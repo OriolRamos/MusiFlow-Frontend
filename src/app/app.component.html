@@ -1,19 +1,18 @@
-<!-- Contenedor principal con fondo negro -->
 <div class="background">
-  
-  <!-- Contenedor centrado de Bootstrap dentro del fondo negro -->
-  <div class="container my-5 text-center">
-    
-    <!-- Título principal con estilo personalizado -->
+  <div class="bloqueGris">
     <h1 class="title mb-4">
       musi<span class="highlight">Flow</span> - Tota la teva música al cloud
     </h1>
-    
-    <!-- Descripción opcional para proporcionar contexto adicional -->
+    <h2 class="imagen-redondeada">
+      <img src="concha_marina.jpg" alt="Concha Marina">
+    </h2>
+    <button *ngIf="!isAuthenticated" class="idem_botom" (click)="irAOtraPagina()">Haz clic aquí, para registrarte</button>
+    <button *ngIf="isAuthenticated" (click)="logout()">Cerrar sesión</button>
+  </div>
+  <div class="container my-5 text-center">
     <p class="lead text-muted">
       Accedeix i gaudeix de_la teva música en qualsevol lloc, sense complicacions.
     </p>
-    
     <!-- Componente de carga de archivos MP3 -->
     <app-mp3-file></app-mp3-file>
   

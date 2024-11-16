@@ -1,25 +1,35 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';  // Importa CommonModule
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {Mp3FileComponent} from './mp3-file/mp3-file.component';
+import { AuthService} from './services/auth.service';
+import { RouterModule } from '@angular/router';
+import { PaginaIdemComponent } from './pagina-idem/pagina-idem.component';
+import { Router } from '@angular/router';  // Importa el Router
+
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, HttpClientModule, Mp3FileComponent] // Afegeix els mòduls aquí
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule, Mp3FileComponent, RouterModule] // Afegeix els mòduls aquí
 })
 
 export class AppComponent {
   uploadForm: FormGroup;
   uploadedFiles: string[] = [];
   title = 'MusiFlow-Frontend';
+  isAuthenticated: boolean;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+
+  constructor(private fb: FormBuilder, private http: HttpClient, private authService: AuthService, private router: Router) {
     this.uploadForm = this.fb.group({
       file: [null]
     });
+    this.isAuthenticated = this.authService.isAuthenticated();
   }
 
   onFileChange(event: any) {
@@ -46,4 +56,20 @@ export class AppComponent {
       this.uploadedFiles = files;
     });
   }
+  
+  login() {
+    this.authService.login('usuari', 'contraseña');  // Aquí usas el token para simular el login
+    this.isAuthenticated = true;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isAuthenticated = false;
+  }
+
+  irAOtraPagina() {
+    this.router.navigate(['/pagina-idem']);  // Usa el router para navegar
+  }
+  // Método para manejar el cierre de sesión (opcional)
 }
+
