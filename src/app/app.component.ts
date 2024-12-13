@@ -68,7 +68,7 @@ export class AppComponent {
   }
 
   irAOtraPagina() {
-    this.router.navigate(['/pagina-idem']);  // Usa el router para navegar
+    this.router.navigate(['/presentacio']);  // Usa el router para navegar
   }
   // Método para manejar el cierre de sesión (opcional)
 }
