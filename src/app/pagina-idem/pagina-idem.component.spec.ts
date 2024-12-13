@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PaginaIdemComponent } from './pagina-idem.component';
 import { RouterTestingModule } from '@angular/router/testing';  // Si usas rutas en tu componente
 
+
 describe('PaginaIdemComponent', () => {
   let component: PaginaIdemComponent;
   let fixture: ComponentFixture<PaginaIdemComponent>;

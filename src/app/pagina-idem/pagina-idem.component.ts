@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { NgModule , Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms'; // Formularis reactius
+import { Router } from '@angular/router';  // Importa el Router
+
 
 @Component({
   selector: 'app-pagina-idem',
@@ -12,8 +14,9 @@ export class PaginaIdemComponent implements OnInit {
   // Variables del component
   titulo: string;
   formulario: FormGroup;
+  isFlipped = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router) {
     // Inicialitza el títol
     this.titulo = 'Bienvenido a la otra página';
 
@@ -33,4 +36,14 @@ export class PaginaIdemComponent implements OnInit {
   enviarFormulario(): void {
     console.log('Datos del formulario:', this.formulario.value);
   }
+
+  flip(state: boolean): void {
+    this.isFlipped = state;
+  }
+
+  
+  irAOtraPagina() {
+    this.router.navigate(['']);  // Usa el router para navegar
+  }
+  
 }
