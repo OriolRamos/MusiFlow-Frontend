@@ -117,6 +117,21 @@ export class Mp3FileComponent implements OnInit {
           console.error('Upload failed:', error);
         }
       );
+
+      // Aquí canvien el nom del fitxer abans de pujar-lo a Cloudflare
+      const title = this.uploadForm.get('title')?.value || this.selectedFile.name; // Utilitza el títol del formulari o el nom original
+      const renamedFile = new File([this.selectedFile], `${title}.mp3`, { type: this.selectedFile.type });
+
+      this.mp3FileService.uploadToCloudflare(renamedFile).subscribe(
+        (response) => {
+          console.log('Fitxer pujat correctament a Cloudflare:', response);
+          this.uploadForm.reset();
+          this.selectedFile = null; // Reiniciem l'estat
+        },
+        (error) => {
+          console.error('Error en pujar a Cloudflare:', error);
+        }
+      );
     } else {
       console.error('No file selected.');
     }
