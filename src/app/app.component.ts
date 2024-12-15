@@ -6,7 +6,8 @@ import {Mp3FileComponent} from './mp3-file/mp3-file.component';
 import { AuthService} from './services/auth.service';
 import { RouterModule } from '@angular/router';
 import { PaginaIdemComponent } from './pagina-idem/pagina-idem.component';
-import { Router } from '@angular/router';  // Importa el Router
+import { Router } from '@angular/router';
+import {MusicPlayerComponent} from './music-player/music-player.component';  // Importa el Router
 
 
 
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';  // Importa el Router
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule, Mp3FileComponent, RouterModule] // Afegeix els mòduls aquí
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, HttpClientModule, Mp3FileComponent, RouterModule, MusicPlayerComponent] // Afegeix els mòduls aquí
 })
 
 export class AppComponent {
@@ -57,7 +58,7 @@ export class AppComponent {
       this.uploadedFiles = files;
     });
   }
-  
+
   login() {
     this.authService.login();  // Aquí usas el token para simular el login
     this.isAuthenticated = true;
