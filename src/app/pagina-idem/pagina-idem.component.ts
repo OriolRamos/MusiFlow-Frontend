@@ -1,9 +1,8 @@
 import { NgModule , Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms'; // Formularis reactius
+import { ReactiveFormsModule, FormGroup, FormBuilder, FormsModule } from '@angular/forms'; // Formularis reactius
 import { Router } from '@angular/router';  // Importa el Router
-import { AuthService} from './services/auth.service';
+import { AuthService} from '../services/auth.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
- 
 
 @Component({
   selector: 'app-pagina-idem',
@@ -50,6 +49,5 @@ export class PaginaIdemComponent implements OnInit {
 
   login() {
     this.authService.login('usuari', 'contraseña');  // Aquí usas el token para simular el login
-    this.isAuthenticated = true;
   } 
 }
