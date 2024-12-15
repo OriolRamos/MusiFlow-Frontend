@@ -10,6 +10,7 @@ import { Router } from '@angular/router';  // Importa el Router
 
 
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,7 +23,7 @@ export class AppComponent {
   uploadForm: FormGroup;
   uploadedFiles: string[] = [];
   title = 'MusiFlow-Frontend';
-  isAuthenticated: boolean;
+  isAuthenticated: boolean = false;
 
 
   constructor(private fb: FormBuilder, private http: HttpClient, private authService: AuthService, private router: Router) {
@@ -58,7 +59,7 @@ export class AppComponent {
   }
   
   login() {
-    this.authService.login('usuari', 'contraseña');  // Aquí usas el token para simular el login
+    this.authService.login();  // Aquí usas el token para simular el login
     this.isAuthenticated = true;
   }
 
@@ -71,5 +72,19 @@ export class AppComponent {
     this.router.navigate(['/presentacio']);  // Usa el router para navegar
   }
   // Método para manejar el cierre de sesión (opcional)
+  canActivate(): boolean {
+    if (this.authService.isAuthenticated()) {
+      return true; // El usuario está autenticado, permite el acceso
+    } else {
+      this.router.navigate(['/pagina-iden']); // Redirige a la página de identificación
+      return false;
+    }
+  }
+  ngOnInit() {
+      if (!this.authService.isAuthenticated()) {
+        this.router.navigate(['/pagina-iden']); // Redirige si no está autenticado
+      }
+  }
 }
+
 

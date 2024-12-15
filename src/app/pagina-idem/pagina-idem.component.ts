@@ -44,10 +44,12 @@ export class PaginaIdemComponent implements OnInit {
 
   
   irAOtraPagina() {
-    this.router.navigate(['']);  // Usa el router para navegar
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['']);  // Usa el router para navegar
+    }
   }
 
   login() {
-    this.authService.login('usuari', 'contraseña');  // Aquí usas el token para simular el login
+    this.authService.login();  // Aquí usas el token para simular el login
   } 
 }
