@@ -1,22 +1,22 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PaginaIdemComponent } from './pagina-idem.component';
+import { PresentacioComponent } from './presentacio.component';
 import { RouterTestingModule } from '@angular/router/testing';  // Si usas rutas en tu componente
 
 
-describe('PaginaIdemComponent', () => {
-  let component: PaginaIdemComponent;
-  let fixture: ComponentFixture<PaginaIdemComponent>;
+describe('PresentacioComponent', () => {
+  let component: PresentacioComponent;
+  let fixture: ComponentFixture<PresentacioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule  // Importa los módulos necesarios, como RouterTestingModule si usas rutas
       ],
-      declarations: [PaginaIdemComponent]  // Declara el componente
+      declarations: [PresentacioComponent]  // Declara el componente
     })
     .compileComponents();  // Compila los componentes
 
-    fixture = TestBed.createComponent(PaginaIdemComponent);  // Crea el componente
+    fixture = TestBed.createComponent(PresentacioComponent);  // Crea el componente
     component = fixture.componentInstance;  // Instancia el componente
     fixture.detectChanges();  // Detecta los cambios
   });

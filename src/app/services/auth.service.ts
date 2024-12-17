@@ -1,30 +1,27 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root' // Esto permite que Angular registre este servicio globalmente
 })
 export class AuthService {
 
   constructor() { }
+  private authenticated = false; // Cambiar según la lógica real
 
   // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      return !!localStorage.getItem('token'); // Aquí verificas si existe un token
-    }
-    return false;
+    return this.authenticated;
   }
-  
-  
 
   // Método para simular el login (puedes adaptarlo a tu lógica real)
-  login(username: string, password: string): void {
-    //localStorage.setItem('authToken', token);
+  login(): void {
+    this.authenticated = true;
   }
 
   // Método para simular el logout
   logout(): void {
-    localStorage.removeItem('authToken');
+    this.authenticated = false;
   }
 }

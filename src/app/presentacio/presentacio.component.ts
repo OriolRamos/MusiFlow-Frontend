@@ -1,23 +1,22 @@
 import { NgModule , Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormBuilder, FormsModule } from '@angular/forms'; // Formularis reactius
+import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms'; // Formularis reactius
 import { Router } from '@angular/router';  // Importa el Router
-import { AuthService} from '../services/auth.service';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+
 
 @Component({
-  selector: 'app-pagina-idem',
+  selector: 'app-presentacio',
   standalone: true,
-  templateUrl: './pagina-idem.component.html', // Enllaça automàticament al fitxer HTML
-  styleUrls: ['./pagina-idem.component.css'],
+  templateUrl: './presentacio.component.html', // Enllaça automàticament al fitxer HTML
+  styleUrls: ['./presentacio.component.css'],
   imports: [ReactiveFormsModule] // Importa els mòduls necessaris per a formularis
 })
-export class PaginaIdemComponent implements OnInit {
+export class PresentacioComponent implements OnInit {
   // Variables del component
   titulo: string;
   formulario: FormGroup;
   isFlipped = false;
 
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router) {
     // Inicialitza el títol
     this.titulo = 'Bienvenido a la otra página';
 
@@ -44,12 +43,7 @@ export class PaginaIdemComponent implements OnInit {
 
   
   irAOtraPagina() {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['']);  // Usa el router para navegar
-    }
+    this.router.navigate(['pagina-idem']);  // Usa el router para navegar
   }
-
-  login() {
-    this.authService.login();  // Aquí usas el token para simular el login
-  } 
+  
 }
