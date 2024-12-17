@@ -17,6 +17,10 @@ export class Mp3FileService {
     return this.http.get<Mp3File[]>(this.apiUrl);
   }
 
+  getUserByUserName(userName: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/${userName}`);
+  }
+
   uploadMp3File(formData: FormData): Observable<Mp3File> {
     return this.http.post<Mp3File>(`${this.apiUrl}/upload`, formData);
   }

@@ -56,7 +56,7 @@ export class AppComponent {
       this.uploadedFiles = files;
     });
   }
-  
+
   login() {
     this.authService.login('usuari', 'contraseña');  // Aquí usas el token para simular el login
     this.isAuthenticated = true;
@@ -71,5 +71,9 @@ export class AppComponent {
     this.router.navigate(['/pagina-idem']);  // Usa el router para navegar
   }
   // Método para manejar el cierre de sesión (opcional)
+
+  obrirLogin(){
+    this.router.navigate(['/login-modal']);
+  }
 }
 

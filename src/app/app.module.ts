@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule  } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; // Afegeix aquesta línia per a les sol·licituds HTTP
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { PaginaIdemComponent } from './pagina-idem/pagina-idem.component';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 import { AppComponent } from './app.component';
 
 
 const routes: Routes = [
   { path: '', component: AppComponent },
   { path: 'pagina-idem', component: PaginaIdemComponent },
-  { path: '**', redirectTo: '' } 
+  { path: 'login-modal', component: LoginModalComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
@@ -25,6 +27,6 @@ const routes: Routes = [
   ],
   providers: [],
   exports: [RouterModule],
-  bootstrap: [] // Component d'arrencada principal
+  bootstrap: []
 })
 export class AppModule { }

@@ -3,6 +3,9 @@ import { Mp3FileService } from './mp3-file.service';
 import { Mp3File } from './mp3-file.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { UserService } from '../services/user.service';
+import { User } from '../services/user.service';
+
 
 @Component({
   selector: 'app-mp3-file',
@@ -19,7 +22,10 @@ export class Mp3FileComponent implements OnInit {
   errorMessage: string | null = null; // Missatge d'error
   showModal: boolean = false; // Estat del modal
 
-  constructor(private mp3FileService: Mp3FileService, private formBuilder: FormBuilder) {
+  currentUser: User | null = null;
+
+
+  constructor(private mp3FileService: Mp3FileService, private formBuilder: FormBuilder, private userService: UserService) {
     // Initialize the form in the constructor
     this.uploadForm = this.formBuilder.group({
       title: [''],
@@ -32,19 +38,30 @@ export class Mp3FileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMp3Files();
+
+    this.currentUser = this.userService.getUser();
+
   }
 
   getMp3Files(): void {
     this.loading = true; // Activa l'estat de càrrega
-    this.mp3FileService.getMp3Files().subscribe((files) => {
-      this.mp3Files = files;
+    const userName = this.userService.getUser()?.userName;
+    console.log(this.userService.getUser()?.songs + " ´´´---PUTAS ");
+
+    if (userName) {
+      const currentUser = this.userService.getUser();
+      if (currentUser) {
+        this.mp3Files = currentUser.songs; // Asignamos las canciones almacenadas del usuario
+      }
       this.loading = false; // Desactiva l'estat de càrrega
-    }, () => {
-      this.loading = false; // Desactiva l'estat de càrrega en cas d'error
-    });
+    } else {
+      console.error("No user is logged in.");
+      this.loading = false;
+    }
   }
 
-  // Funció per manejar la selecció de fitxer
+
+      // Funció per manejar la selecció de fitxer
   onFileSelected(event: Event): void {
     console.log("File selected");
     const input = event.target as HTMLInputElement;
@@ -106,7 +123,7 @@ export class Mp3FileComponent implements OnInit {
       formData.append('album', this.uploadForm.get('album')?.value || '');
       formData.append('year', this.uploadForm.get('year')?.value?.toString() || ''); // Envia "" si és null
       formData.append('genre', this.uploadForm.get('genre')?.value || '');
-
+      formData.append('user', JSON.stringify(this.currentUser));
       this.mp3FileService.uploadMp3File(formData).subscribe(
         (file) => {
           this.mp3Files.push(file);

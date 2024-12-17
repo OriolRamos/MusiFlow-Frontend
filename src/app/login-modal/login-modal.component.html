@@ -1,0 +1,22 @@
+<div class="modal-overlay" (click)="close()"></div>
+<div class="modal-content">
+  <button class="close-button" (click)="close()">✖</button>
+  <h2>Inicia sessió</h2>
+  <form (ngSubmit)="iniciarSessio()">
+    <div class="form-group">
+      <label for="username">Usuari:</label>
+      <input id="username" type="text" placeholder="Introdueix el teu usuari" [(ngModel)]="userName" name="userName" required />
+    </div>
+    <div class="form-group">
+      <label for="password">Contrasenya:</label>
+      <input id="password" type="password" placeholder="Introdueix la contrasenya" [(ngModel)]="password" name="password" required />
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <button type="submit" class="submit-button">Inicia sessió</button>
+    <button type="button" (click)="registrarse()" class="register-button">Registrar-se</button>
+  </form>
+</div>
