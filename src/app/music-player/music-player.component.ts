@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { AudioService } from '../services/audio.service';
 
 @Component({
@@ -28,6 +28,8 @@ export class MusicPlayerComponent implements OnInit {
       }
     });
   }
+  
+  
 
   playAudio() {
     const audioPlayer = this.audioPlayerRef.nativeElement;

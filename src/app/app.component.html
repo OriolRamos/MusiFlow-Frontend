@@ -9,15 +9,12 @@
     <button *ngIf="!isAuthenticated" class="idem_botom" (click)="irAOtraPagina()">Haz clic aquí, para registrarte</button>
     <button *ngIf="isAuthenticated" (click)="logout()">Cerrar sesión</button>
 
-    <button class="loginButton" (click)="obrirLogin()">Registrar-se</button>
+    <!--<button class="loginButton" (click)="obrirLogin()">Registrar-se</button> -->
   </div>
   <div class="container my-5 text-center">
-    <p class="lead text-muted">
-      Accedeix i gaudeix de_la teva música en qualsevol lloc, sense complicacions.
-    </p>
     <!-- Componente de carga de archivos MP3 -->
     <app-mp3-file></app-mp3-file>
-    <app-music-player></app-music-player>
+
   </div>
 </div>
 

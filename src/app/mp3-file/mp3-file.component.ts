@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Mp3FileService } from './mp3-file.service';
 import { Mp3File } from './mp3-file.model';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { UserService } from '../services/user.service';
 import { User } from '../services/user.service';
-
+import {MusicPlayerComponent} from '../music-player/music-player.component';  // Importa el Router
 
 @Component({
   selector: 'app-mp3-file',
   templateUrl: './mp3-file.component.html',
   styleUrls: ['./mp3-file.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // Add ReactiveFormsModule here
+  imports: [CommonModule, ReactiveFormsModule, MusicPlayerComponent], // Add ReactiveFormsModule here
 })
 export class Mp3FileComponent implements OnInit {
   mp3Files: Mp3File[] = []; // Array per a guardar els fitxers MP3
@@ -21,9 +21,11 @@ export class Mp3FileComponent implements OnInit {
   selectedFile: File | null = null; // Variable per guardar el fitxer seleccionat
   errorMessage: string | null = null; // Missatge d'error
   showModal: boolean = false; // Estat del modal
-
+  @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>; // Referencia al elemento audio
+  @ViewChild(MusicPlayerComponent) musicplayer!:MusicPlayerComponent;
+  audioSource: string = '';
   currentUser: User | null = null;
-
+  selectedFileName: string = 'In_Vain.mp3';  
 
   constructor(private mp3FileService: Mp3FileService, private formBuilder: FormBuilder, private userService: UserService) {
     // Initialize the form in the constructor
@@ -38,9 +40,20 @@ export class Mp3FileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMp3Files();
-
     this.currentUser = this.userService.getUser();
 
+    this.selectedFileName = 'In_Vain.mp3';
+    /*
+    // Cargar el archivo de audio desde el servicio
+    this.musicService.streamAudio(this.selectedFileName).subscribe({
+      next: (data: ArrayBuffer) => {
+        const blob = new Blob([data], { type: 'audio/mp3' });
+        this.audioSource = URL.createObjectURL(blob); // Crear el objeto URL
+      },
+      error: (err) => {
+        console.error('Error al cargar el audio:', err);
+      }
+    });*/
   }
 
   getMp3Files(): void {
@@ -91,20 +104,23 @@ export class Mp3FileComponent implements OnInit {
 
 
   // Funció buida per reproduir un fitxer (a implementar)
-  reproduir(file: Mp3File): void {
-    // Implementació futura per reproduir el fitxer
-    console.log('Reproduint:', file);
+  reproduir(): void {
+    this.musicplayer.playAudio();
   }
 
   // Funció buida per aturar la reproducció d'un fitxer (a implementar)
-  aturar(file: Mp3File): void {
-    // Implementació futura per aturar el fitxer
-    console.log('Aturant:', file);
+  aturar(): void {
+    this.musicplayer.pauseAudio();
   }
-
   // Funció per recarregar els fitxers des del backend
   reloadFiles(): void {
-    this.getMp3Files();
+    const audioPlayer = this.audioPlayerRef.nativeElement;
+    audioPlayer.currentTime = 0; // Reinicia el tiempo de reproducción
+    audioPlayer.play().then(() => {
+      console.log('Reproducción reiniciada');
+    }).catch((error) => {
+      console.error('Error al intentar reiniciar el audio:', error);
+    });
   }
 
   deleteFile(file: Mp3File): void {

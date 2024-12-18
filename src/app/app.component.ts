@@ -77,6 +77,7 @@ export class AppComponent {
   obrirLogin() {
     this.router.navigate(['/login-modal']);
   }
+
 }
 
 

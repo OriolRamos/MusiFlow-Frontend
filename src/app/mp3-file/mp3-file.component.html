@@ -1,18 +1,30 @@
   <div class="container mt-4">
   <!-- Action bar with file upload and reload buttons -->
   <div class="action-bar d-flex justify-content-between align-items-center p-3 mb-4">
-    <h2 class="title">{{ currentUser?.userName || 'Les teves cançons' }}</h2>
+    <h2 class="title">{{ currentUser?.userName || "Les teves cançons" }}</h2>
     <div class="d-flex gap-3">
-      <input type="file" (change)="onFileSelected($event)" class="form-control-file" />
-      <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
+      <div class="custom-file-container">
+        <!-- Label con la imagen personalizada -->
+        <label for="fileInput">
+          <img src="images.png" alt="Seleccionar Archivo" class="custom-file-button"/>
+        </label>
+        <input 
+          type="file" 
+          id="fileInput" 
+          (change)="onFileSelected($event)" 
+          class="form-control-file custom-file-input" 
+          style="display:none;" />
+        </div>
+       <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
+
+      
     </div>
-    <!-- Formulario de carga -->
+
     <form
       *ngIf="selectedFile"
       [formGroup]="uploadForm"
       (ngSubmit)="uploadFile()"
-      class="upload-form p-4 rounded shadow-lg mx-auto mt-4"
-      style="max-width: 500px; "
+      class="upload-form"
     >
       <h3 class="text-center mb-4">Fitxer seleccionat: <strong>{{ selectedFile.name }}</strong></h3>
 
@@ -99,8 +111,9 @@
 
       </span>
       <div class="button-group">
-        <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
-        <button class="btn btn-sm btn-outline-danger" (click)="aturar(file)">Atura</button>
+        <button class="btn btn-sm btn-outline-primary" (click)="reproduir()">Reproduir</button>
+        <!--  -->
+        <button class="btn btn-sm btn-outline-danger" (click)="aturar()">Atura</button>
         <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
       </div>
     </li>
@@ -111,5 +124,6 @@
     {{ errorMessage }}
   </div>
 
+  <app-music-player></app-music-player>
 
 </div>

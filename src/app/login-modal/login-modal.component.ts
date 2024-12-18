@@ -55,7 +55,7 @@
             console.log('Usuari creat:', user);
             this.userService.setUser(user);
             this.errorMessage = '';
-            setTimeout(() => this.router.navigate(['..']), 2000); // Navegar després de registrar-se
+            setTimeout(() => this.router.navigate(['']), 2000); // Navegar després de registrar-se
             this.idem = true;
           },
           (error) => {

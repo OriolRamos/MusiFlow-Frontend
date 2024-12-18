@@ -1,34 +1,33 @@
 /* Estil de la barra d'acció superior */
 .action-bar {
-  background-color: #007bff;
-  color: white;
+  background-color: #1e1f1f;
+  color: rgba(255, 255, 255, 0.025);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.title {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  color: #ffffff;
+  margin-right: 7%;
+  margin-left: 3%;
 }
 
 /* Estil per a la llista de fitxers */
 .mp3-list .list-group-item {
-  background-color: #e3f2fd; /* Color de fons més intens */
-  color: #007bff;
+  color: #ffffff;
   font-family: 'Poppins', sans-serif;
   border: none;
   margin-bottom: 0.5rem;
-  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
   transition: transform 0.2s ease;
+  border-bottom: 2px solid #aca5a5;  /* Línea inferior de color azul */
+  margin-right: 7%;
+  margin-left: 1.5%;
+
 }
 
 .mp3-list .list-group-item:hover {
-  background-color: #bbdefb; /* Color de fons més clar al passar-hi el cursor */
+  opacity: 0.5;
+  background-color: #3e3f3f; /* Color de fons més clar al passar-hi el cursor */
   transform: translateY(-2px);
 }
 
@@ -36,13 +35,22 @@
 .btn-primary {
   background-color: #ffc107;
   border-color: #ffc107;
-  color: #007bff;
+  color: #ffffff;
   font-weight: bold;
+  margin-left: 15%;
+  margin-top: -1%;
+  display: flex;
+
 }
 
 .btn-outline-info {
-  color: #007bff;
-  border-color: #007bff;
+  width: 100px; /* Ajusta el tamaño según lo que necesites */
+  height: auto; 
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 13%;
 }
 
 .btn-outline-primary {
@@ -59,7 +67,7 @@
 .loading-container .loader {
   border: 5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 5px solid #007bff;
+  border-top: 5px solid #3d3e3e;
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
@@ -77,7 +85,7 @@
 
 /* Text de càrrega */
 .loading-text {
-  color: #007bff;
+  color: #9aacbf;
   font-weight: 600;
   margin-bottom: 1rem;
 }
@@ -89,21 +97,22 @@
 
 /* Estils generals per centrar el formulari a la pàgina */
 body {
+  position: relative; 
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
-  background-color: #f4f4f9;
+  background-color: #00006d;
   font-family: Arial, sans-serif;
 }
 
 /* Estils per al formulari */
 .upload-form {
-  max-width: 600px;
-  width: 100%;
+  position: absolute;
+  width: 50%;
   padding: 2rem;
-  background-color: #ffffff;
+  background-color: #565146;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
@@ -161,4 +170,34 @@ body {
 
 .upload-form button[type="submit"]:hover {
   background-color: #00796b;
+}
+
+.title {
+  font-family: 'Georigia';
+  font-size: 200%;
+  font-weight: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: white;
+  display: inline-block;
+  margin-top: 0.3%;    /* Superior */
+  margin-left: 2%;
+  animation: shine 2s ease-in-out infinite;
+}
+
+
+.custom-file-button {
+  display: flex;
+  width: 2%; /* Ajusta el tamaño de la imagen */
+  height: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+  margin-left: 2%;
+  margin-top: -1%;
+}
+
+.custom-file-button:hover {
+  border-color: #034320;
 }
