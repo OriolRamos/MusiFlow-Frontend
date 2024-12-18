@@ -3,13 +3,15 @@ import { ReactiveFormsModule, FormGroup, FormBuilder, FormsModule } from '@angul
 import { Router } from '@angular/router';  // Importa el Router
 import { AuthService} from '../services/auth.service';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
+import { LoginModalComponent } from "../login-modal/login-modal.component";
 
 @Component({
   selector: 'app-pagina-idem',
   standalone: true,
   templateUrl: './pagina-idem.component.html', // Enllaça automàticament al fitxer HTML
   styleUrls: ['./pagina-idem.component.css'],
-  imports: [ReactiveFormsModule] // Importa els mòduls necessaris per a formularis
+  imports: [ReactiveFormsModule, LoginModalComponent] // Importa els mòduls necessaris per a formularis
+ // Importa els mòduls necessaris per a formularis
 })
 export class PaginaIdemComponent implements OnInit {
   // Variables del component

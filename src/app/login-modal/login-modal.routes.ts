@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PaginaIdemComponent } from './pagina-idem.component';
-import { LoginModalComponent } from '../login-modal/login-modal.component';
+import { PaginaIdemComponent } from '../pagina-idem/pagina-idem.component';
+import { LoginModalComponent } from './login-modal.component';
 
 export const routes: Routes = [
   { path: '', component: PaginaIdemComponent },  // Ruta principal

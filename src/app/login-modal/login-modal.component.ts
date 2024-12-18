@@ -14,6 +14,7 @@
   export class LoginModalComponent {
     @Output() closeModal = new EventEmitter<void>();
 
+    idem: Boolean = false;
     userName: string = '';
     password: string = '';
     errorMessage: string = '';
@@ -37,14 +38,14 @@
           this.userService.setUser(user);
 
           this.closeModal.emit();
-          this.router.navigate(['..']);
           this.errorMessage = ' tot ok';
+          this.idem = true;
+          this.router.navigate(['']);
         },
         (error) => {
           this.errorMessage = "error d'usuari o contrasenya";
         }
       );
-
     }
 
     registrarse(){
@@ -55,6 +56,7 @@
             this.userService.setUser(user);
             this.errorMessage = '';
             setTimeout(() => this.router.navigate(['..']), 2000); // Navegar després de registrar-se
+            this.idem = true;
           },
           (error) => {
             this.errorMessage =
@@ -65,5 +67,9 @@
       } else {
         this.errorMessage = 'Els camps no poden estar buits.';
       }
+    }
+
+    pasarSeguentpagina(){
+      
     }
   }
