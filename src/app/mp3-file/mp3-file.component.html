@@ -108,11 +108,9 @@
         <strong>{{ file.title || 'titol desconegut' }}</strong> -
         {{ file.artist || 'artista desconegut' }}
         ({{ file.album || 'album desconegut' }}, {{ file.year && file.year !== 0 ? file.year : 'any desconegut' }})
-
       </span>
       <div class="button-group">
-        <button class="btn btn-sm btn-outline-primary" (click)="reproduir()">Reproduir</button>
-        <!--  -->
+        <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
         <button class="btn btn-sm btn-outline-danger" (click)="aturar()">Atura</button>
         <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
       </div>

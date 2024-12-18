@@ -104,8 +104,10 @@ export class Mp3FileComponent implements OnInit {
 
 
   // Funció buida per reproduir un fitxer (a implementar)
-  reproduir(): void {
-    this.musicplayer.playAudio();
+  reproduir(file: Mp3File): void {
+    console.log('Reproduint:', file);
+
+    this.musicplayer.playAudio(file.title+'.mp3');
   }
 
   // Funció buida per aturar la reproducció d'un fitxer (a implementar)

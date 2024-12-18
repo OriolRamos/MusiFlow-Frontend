@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AudioService } from '../services/audio.service';
 
 @Component({
@@ -11,32 +11,31 @@ import { AudioService } from '../services/audio.service';
 export class MusicPlayerComponent implements OnInit {
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>; // Referencia al elemento audio
   audioSource: string = ''; // Fuente de audio
-
+  fileName: string = '';
   constructor(private musicService: AudioService) {}
 
   ngOnInit() {
-    const fileName = 'In_Vain.mp3';
+    // Aquí no cal carregar l'àudio per defecte, ja que ho faràs dinàmicament
+    this.audioSource = ''; // Inicia el 'audioSource' buit.
+  }
 
-    // Cargar el archivo de audio desde el servicio
-    this.musicService.streamAudio(fileName).subscribe({
+  playAudio(fileName: string) {
+    // Carregar el fitxer d'àudio des del servei
+    this.fileName = fileName;
+    this.musicService.streamAudio(this.fileName).subscribe({
       next: (data: ArrayBuffer) => {
         const blob = new Blob([data], { type: 'audio/mp3' });
-        this.audioSource = URL.createObjectURL(blob); // Crear el objeto URL
+        this.audioSource = URL.createObjectURL(blob); // Crear l'objecte URL per al fitxer d'àudio
+        const audioPlayer = this.audioPlayerRef.nativeElement;
+        audioPlayer.play().then(() => {
+          console.log('Reproducció iniciada o reanudada');
+        }).catch((error) => {
+          console.error('Error al intentar reproduir l\'àudio:', error);
+        });
       },
       error: (err) => {
-        console.error('Error al cargar el audio:', err);
+        console.error('Error al carregar el fitxer d\'àudio:', err);
       }
-    });
-  }
-  
-  
-
-  playAudio() {
-    const audioPlayer = this.audioPlayerRef.nativeElement;
-    audioPlayer.play().then(() => {
-      console.log('Reproducción iniciada o reanudada');
-    }).catch((error) => {
-      console.error('Error al intentar reproducir el audio:', error);
     });
   }
 

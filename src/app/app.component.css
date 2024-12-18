@@ -48,11 +48,11 @@
 }
 
 .background {
-  display: block;
+  display: fixed;
   background: rgb(0,1,0);
   background: linear-gradient(0deg, rgba(0,1,0,1) 52%, rgba(13,46,17,1) 80%, rgba(19,68,26,1) 93%);
   background-attachment: fixed;
-  height: 100vh;
+  height: 300vh;
   width: 100%;
   position: absolute;
   top: 0;
@@ -62,7 +62,7 @@
 
 .bloqueGris{
   width: 90vw;  /* Ocupa el 90% del ancho de la pantalla */
-  height: 31%; /* Ocupa el 90% de la altura de la pantalla */
+  height:10%; /* Ocupa el 90% de la altura de la pantalla */
   background-color: rgb(58, 58, 58);  /* Color de fondo gris */
   margin: 3vh 3vw;  /* Deja un 5% de espacio en todos los bordes */
   border-radius: 20px;
