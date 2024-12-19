@@ -55,5 +55,9 @@ export interface User {
     return this.http.post<User>(`${this.baseUrl}/createUser`, null, { params });
   }
 
+  getUserSogs(userName: string): Observable<Mp3File[]> {
+    return this.http.get<Mp3File[]>(`${this.baseUrl}/${userName}/songs`);
+  }
+
 
 }

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms'; //
 import { UserService } from '../services/user.service';
 import { User } from '../services/user.service';
 import {MusicPlayerComponent} from '../music-player/music-player.component';  // Importa el Router
+import {Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mp3-file',
@@ -25,12 +26,12 @@ export class Mp3FileComponent implements OnInit {
   @ViewChild(MusicPlayerComponent) musicplayer!:MusicPlayerComponent;
   audioSource: string = '';
   currentUser: User | null = null;
-  selectedFileName: string = 'In_Vain.mp3';  
+  selectedFileName: string = 'In_Vain.mp3';
 
   constructor(private mp3FileService: Mp3FileService, private formBuilder: FormBuilder, private userService: UserService) {
     // Initialize the form in the constructor
     this.uploadForm = this.formBuilder.group({
-      title: [''],
+      title: ['', Validators.required],
       artist: [''],
       album: [''],
       year: [null],
@@ -59,14 +60,13 @@ export class Mp3FileComponent implements OnInit {
   getMp3Files(): void {
     this.loading = true; // Activa l'estat de càrrega
     const userName = this.userService.getUser()?.userName;
-    console.log(this.userService.getUser()?.songs + " ´´´---PUTAS ");
+    console.log(this.userService.getUser()?.songs);
 
     if (userName) {
-      const currentUser = this.userService.getUser();
-      if (currentUser) {
-        this.mp3Files = currentUser.songs; // Asignamos las canciones almacenadas del usuario
-      }
-      this.loading = false; // Desactiva l'estat de càrrega
+      this.userService.getUserSogs(userName).subscribe((songs) => {
+        this.mp3Files = songs;
+        this.loading = false;
+      });
     } else {
       console.error("No user is logged in.");
       this.loading = false;
@@ -126,12 +126,14 @@ export class Mp3FileComponent implements OnInit {
   }
 
   deleteFile(file: Mp3File): void {
+    console.log('Deleting file');
     this.mp3FileService.deleteMp3File(file.id).subscribe(() => {
       this.mp3Files = this.mp3Files.filter(f => f.id !== file.id); // Elimina el fitxer de la llista local
     });
   }
 
   uploadFile(): void {
+    console.log('Uploading file');
     if (this.selectedFile) {
       const formData = new FormData();
 

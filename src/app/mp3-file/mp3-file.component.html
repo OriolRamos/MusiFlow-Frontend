@@ -4,20 +4,11 @@
     <h2 class="title">{{ currentUser?.userName || "Les teves cançons" }}</h2>
     <div class="d-flex gap-3">
       <div class="custom-file-container">
-        <!-- Label con la imagen personalizada -->
-        <label for="fileInput">
-          <img src="images.png" alt="Seleccionar Archivo" class="custom-file-button"/>
-        </label>
-        <input 
-          type="file" 
-          id="fileInput" 
-          (change)="onFileSelected($event)" 
-          class="form-control-file custom-file-input" 
-          style="display:none;" />
+        <input class="btn btn-outline-info" type="file" (change)="onFileSelected($event)"/>
+        <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
         </div>
-       <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
 
-      
+
     </div>
 
     <form
@@ -36,6 +27,9 @@
           class="form-control"
           placeholder="Introdueix el títol"
         />
+        <div *ngIf="uploadForm.get('title')?.touched && uploadForm.get('title')?.invalid" class="text-danger">
+          El títol és obligatori.
+        </div>
       </div>
 
       <div class="form-group mt-3">
@@ -83,12 +77,16 @@
         type="submit"
         class="btn btn-primary w-100 mt-4"
         style="border-radius: 30px;"
+        [disabled]="uploadForm.invalid"
       >
         Puja fitxer
       </button>
     </form>
 
+
   </div>
+
+
 
   <!-- Loader while loading data -->
   <div *ngIf="loading" class="loading-container text-center my-5">
@@ -111,7 +109,6 @@
       </span>
       <div class="button-group">
         <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
-        <button class="btn btn-sm btn-outline-danger" (click)="aturar()">Atura</button>
         <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
       </div>
     </li>
