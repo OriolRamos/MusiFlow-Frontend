@@ -3,10 +3,16 @@
   <div class="action-bar d-flex justify-content-between align-items-center p-3 mb-4">
     <h2 class="title">{{ currentUser?.userName || "Les teves cançons" }}</h2>
     <div class="d-flex gap-3">
-      <div class="custom-file-container">
-        <input class="btn btn-outline-info" type="file" (change)="onFileSelected($event)"/>
-        <button class="btn btn-outline-info" (click)="reloadFiles()">Recarrega</button>
+      <div class="custom-file-container d-flex flex-column gap-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-white">Penja la teva música</span>
+          <input class="btn btn-primary" type="file" (change)="onFileSelected($event)" />
         </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="text-white">Recarrega la teva música</span>
+          <button class="btn btn-secondary" (click)="reloadFiles()">Recarrega</button>
+        </div>
+      </div>
 
 
     </div>
@@ -17,66 +23,67 @@
       (ngSubmit)="uploadFile()"
       class="upload-form"
     >
-      <h3 class="text-center mb-4">Fitxer seleccionat: <strong>{{ selectedFile.name }}</strong></h3>
+      <h3 class="text-center mb-4 text-white" style="color: white">
+        Fitxer seleccionat: <strong>{{ selectedFile.name }}</strong>
+      </h3>
 
-      <div class="form-group mt-3">
-        <label for="title">Títol</label>
+      <div class="form-group">
+        <label for="title" class="text-white" style="color: white">Títol</label>
         <input
           id="title"
           formControlName="title"
-          class="form-control"
+          class="form-control styled-input"
           placeholder="Introdueix el títol"
         />
-        <div *ngIf="uploadForm.get('title')?.touched && uploadForm.get('title')?.invalid" class="text-danger">
+        <div *ngIf="uploadForm.get('title')?.touched && uploadForm.get('title')?.invalid" class="text-danger" style="color: white">
           El títol és obligatori.
         </div>
       </div>
 
-      <div class="form-group mt-3">
-        <label for="artist">Artista</label>
+      <div class="form-group">
+        <label for="artist" class="text-white" style="color: white">Artista</label>
         <input
           id="artist"
           formControlName="artist"
-          class="form-control"
+          class="form-control styled-input"
           placeholder="Introdueix l'artista"
         />
       </div>
 
-      <div class="form-group mt-3">
-        <label for="album">Àlbum</label>
+      <div class="form-group">
+        <label for="album" class="text-white" style="color: white">Àlbum</label>
         <input
           id="album"
           formControlName="album"
-          class="form-control"
+          class="form-control styled-input"
           placeholder="Introdueix l'àlbum"
         />
       </div>
 
-      <div class="form-group mt-3">
-        <label for="year">Any</label>
+      <div class="form-group">
+        <label for="year" class="text-white" style="color: white">Any</label>
         <input
           type="number"
           id="year"
           formControlName="year"
-          class="form-control"
+          class="form-control styled-input"
           placeholder="Introdueix l'any"
         />
       </div>
 
-      <div class="form-group mt-3">
-        <label for="genre">Gènere</label>
+      <div class="form-group">
+        <label for="genre" class="text-white" style="color: white">Gènere</label>
         <input
           id="genre"
           formControlName="genre"
-          class="form-control"
+          class="form-control styled-input"
           placeholder="Introdueix el gènere"
         />
       </div>
 
       <button
         type="submit"
-        class="btn btn-primary w-100 mt-4"
-        style="border-radius: 30px;"
+        class="btn styled-button w-100 mt-4"
         [disabled]="uploadForm.invalid"
       >
         Puja fitxer
@@ -99,26 +106,127 @@
     <p class="no-files">No hi ha fitxers MP3 disponibles.</p>
   </div>
 
-  <!-- List of files if available -->
-  <ul *ngIf="!loading && mp3Files.length > 0" class="list-group mp3-list">
-    <li *ngFor="let file of mp3Files" class="list-group-item d-flex justify-content-between align-items-center">
-      <span>
-        <strong>{{ file.title || 'titol desconegut' }}</strong> -
-        {{ file.artist || 'artista desconegut' }}
-        ({{ file.album || 'album desconegut' }}, {{ file.year && file.year !== 0 ? file.year : 'any desconegut' }})
-      </span>
-      <div class="button-group">
-        <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
-        <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
-      </div>
-    </li>
-  </ul>
+    <!-- List of files if available -->
+    <ul *ngIf="!loading && mp3Files.length > 0" class="list-group mp3-list">
+      <li *ngFor="let file of getUniqueFiles()" class="list-group-item d-flex justify-content-between align-items-center">
+    <span>
+      <strong>{{ file.title || 'titol desconegut' }}</strong> -
+      {{ file.artist || 'artista desconegut' }}
+      ({{ file.album || 'album desconegut' }}, {{ file.year && file.year !== 0 ? file.year : 'any desconegut' }})
+    </span>
+        <div class="button-group">
+          <button class="btn btn-sm btn-outline-primary" (click)="reproduir(file)">Reproduir</button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file)">Eliminar</button>
+        </div>
+      </li>
+    </ul>
 
-  <!-- Error message if file is not valid -->
+
+    <!-- Error message if file is not valid -->
   <div *ngIf="errorMessage" class="alert alert-danger mt-3">
     {{ errorMessage }}
   </div>
 
-  <app-music-player></app-music-player>
+    <!-- Music player -->
+    <app-music-player class="fixed-player"></app-music-player>
 
 </div>
+
+  <style>
+    .fixed-player {
+      position: fixed;
+      bottom: 0;
+      left: 0; /* Aliniem al marge esquerre */
+      width: 100%; /* Amplada completa */
+      z-index: 1050; /* Ens assegurem que estigui per sobre de tot */
+      background-color: black; /* Color de fons del reproductor */
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Ombra per millorar la visibilitat */
+      text-align: center; /* Centrar contingut intern si és necessari */
+    }
+    .custom-file-container {
+      color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-file-container span {
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #004085;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #5a6268;
+      border-color: #545b62;
+    }
+
+    body {
+      background-color: black; /* Fons de la pàgina negre */
+      color: white; /* Color de text blanc */
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .styled-input {
+      background-color: transparent; /* Fons transparent per inputs */
+      border: 2px solid #ffffff88; /* Vora blanca translúcida */
+      color: white; /* Text blanc */
+      border-radius: 5px; /* Vores arrodonides */
+      padding: 0.5rem; /* Espai interior */
+      font-size: 1rem; /* Mida de text coherent */
+      width: 100%; /* Amplada completa */
+    }
+
+    .styled-input::placeholder {
+      color: #cccccc; /* Color del placeholder */
+    }
+
+    .styled-input:focus {
+      outline: none; /* Treure contorn per defecte */
+      border-color: #007bff; /* Canvi de color al fer focus */
+      box-shadow: 0 0 5px #007bff; /* Ombra suau al fer focus */
+    }
+
+    .styled-button {
+      background-color: #007bff; /* Blau atractiu */
+      border: none; /* Sense vora */
+      color: white; /* Text blanc */
+      border-radius: 5px; /* Vores arrodonides */
+      padding: 0.5rem 1rem; /* Botó compacte */
+      font-size: 1rem; /* Mida de text */
+      cursor: pointer; /* Icona de mà */
+    }
+
+    .styled-button:hover {
+      background-color: #0056b3; /* Blau més fosc al passar el ratolí */
+    }
+
+    .styled-button:disabled {
+      background-color: #cccccc; /* Color gris quan està deshabilitat */
+      cursor: not-allowed; /* Icona de prohibit */
+    }
+
+    .upload-form {
+      max-width: 500px; /* Amplada màxima del formulari */
+      margin: 2rem auto; /* Centrat horitzontal i espai vertical */
+    }
+
+  </style>

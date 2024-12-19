@@ -127,10 +127,29 @@ export class Mp3FileComponent implements OnInit {
 
   deleteFile(file: Mp3File): void {
     console.log('Deleting file');
-    this.mp3FileService.deleteMp3File(file.id).subscribe(() => {
-      this.mp3Files = this.mp3Files.filter(f => f.id !== file.id); // Elimina el fitxer de la llista local
+
+
+    // Crida al servei per eliminar la cançó i passar l'ID de l'usuari
+    this.mp3FileService.deleteMp3File(file.id ).subscribe(() => {
+      // Elimina el fitxer de la llista local
+      this.mp3Files = this.mp3Files.filter(f => f.id !== file.id);
+    }, (error) => {
+      console.error('Error deleting file:', error);
     });
   }
+
+  // Component TS (exemple)
+  getUniqueFiles() {
+    // Filtrar els fitxers perquè només es mostrin els únics per ID
+    return this.mp3Files.filter((value, index, self) =>
+        index === self.findIndex((t) => (
+          t.id === value.id // Comprova que l'ID sigui únic
+        ))
+    );
+  }
+
+
+
 
   uploadFile(): void {
     console.log('Uploading file');

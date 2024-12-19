@@ -1,8 +1,18 @@
-<div>
+<div class="audio-container">
   <audio #audioPlayer [src]="audioSource" controls></audio>
-<div><!--
-    <button (click)="playAudio()">Play</button>
-    <button (click)="pauseAudio()">Pause</button>
-    <button (click)="restartAudio()">Restart</button>
-  </div>
-</div>-->
+</div>
+
+<style>
+  .audio-container {
+    border-radius: 8px; /* Vores arrodonides */
+    max-width: 500px; /* Amplada màxima */
+    margin: 1rem auto; /* Centrat horitzontalment i espai superior/inferior */
+    text-align: center; /* Centrar contingut si n’hi ha més */
+  }
+
+  audio {
+    width: 100%; /* Àudio ocupa tota l'amplada disponible */
+    outline: none; /* Treure el contorn per defecte */
+  }
+</style>
+
