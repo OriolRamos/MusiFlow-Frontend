@@ -1,17 +1,19 @@
 /* Estil de la barra d'acció superior */
 .action-bar {
-  background-color: #1e1f1f;
-  color: rgba(255, 255, 255, 0.025);
+  background-color: rgb(58, 58, 58);
+  color: rgb(58, 58, 58);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 7%;
-  margin-left: 3%;
+  margin: 2vh 3vw;
+  width: 90vw;
+  font-family: 'itali';
+
 }
 
 /* Estil per a la llista de fitxers */
 .mp3-list .list-group-item {
   color: #ffffff;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'itali';
   border: none;
   margin-bottom: 0.5rem;
   display: flex;
@@ -27,18 +29,21 @@
 
 .mp3-list .list-group-item:hover {
   opacity: 0.5;
-  background-color: #3e3f3f; /* Color de fons més clar al passar-hi el cursor */
+  background-color:rgb(58, 58, 58);; /* Color de fons més clar al passar-hi el cursor */
   transform: translateY(-2px);
+  font-family: 'itali';
+
 }
 
 /* Botons */
 .btn-primary {
-  background-color: #ffc107;
-  border-color: #ffc107;
+  background-color: #3407ff;
+  border-color: #1707ff;
   color: #ffffff;
   font-weight: bold;
   margin-left: 15%;
   margin-top: -1%;
+  font-family: 'itali';
 
 }
 
@@ -50,27 +55,35 @@
   border-radius: 8px;
   transition: border-color 0.3s;
   margin-left: 13%;
+  font-family: 'itali';
+
 }
 
 .btn-outline-primary {
   color: #007bff;
   border-color: #007bff;
+  font-family: 'itali';
+
 }
 
 .btn-outline-danger {
   color: #dc3545;
   border-color: #dc3545;
+  font-family: 'itali';
+
 }
 
 /* Loader de càrrega */
 .loading-container .loader {
   border: 5px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 5px solid #3d3e3e;
+  border-top: 5px solid #808080;
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
   margin: auto;
+  font-family: 'itali';
+
 }
 
 @keyframes spin {
@@ -87,31 +100,36 @@
   color: #9aacbf;
   font-weight: 600;
   margin-bottom: 1rem;
+  font-family: 'itali';
 }
 
 .no-files {
+  font-family: 'itali';
   color: #6c757d;
   font-weight: 600;
 }
 
 /* Estils generals per centrar el formulari a la pàgina */
 body {
+  font-family: 'itali';
   align-items: center;
   justify-content: center;
   height: 100vh;
   margin: 0;
   background-color: #00006d;
-  font-family: Arial, sans-serif;
+  font-family: 'itali';
 }
 
 /* Estils per al formulari */
 .upload-form {
   width: 50%;
   padding: 2rem;
-  background-color: #565146;
+  background-color: #808080;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 20px;
+  margin-bottom: 2%;
+  font-family: 'itali';
 }
 
 /* Estil per al títol del formulari */
@@ -120,14 +138,17 @@ body {
   color: #333;
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  font-family: 'itali';
 }
 
 /* Estils per a les etiquetes i els camps de text */
 .upload-form .form-group {
+  font-family: 'itali';
   margin-bottom: 1.5rem;
 }
 
 .upload-form label {
+  font-family: 'itali';
   font-weight: bold;
   color: #555;
   margin-bottom: 0.5rem;
@@ -135,23 +156,26 @@ body {
 
 .upload-form input[type="text"],
 .upload-form input[type="number"] {
+  font-family: 'itali';
   width: 100%;
   padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  color: #333;
+  color: #ffffff;
   transition: border-color 0.3s ease;
 }
 
 .upload-form input[type="text"]:focus,
 .upload-form input[type="number"]:focus {
+  font-family: 'itali';
   border-color: #009087;
   outline: none;
 }
 
 /* Estils per al botó de pujar fitxer */
 .upload-form button[type="submit"] {
+  font-family: 'itali';
   width: 100%;
   padding: 0.9rem;
   font-size: 1.2rem;
@@ -168,7 +192,7 @@ body {
 }
 
 .title {
-  font-family: 'Georigia';
+  font-family: 'itali';
   font-size: 200%;
   font-weight: 100%;
   background-clip: text;
@@ -195,4 +219,11 @@ body {
 
 .custom-file-button:hover {
   border-color: #034320;
+}
+
+@font-face {
+  font-family: 'itali';
+  src: url('/fonts/PantonNarrow-Trial-RegularItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }

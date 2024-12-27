@@ -159,8 +159,8 @@ body {
 
 
 .title_ {
-  font-family: 'Georgia';  /* Correcto nombre de la fuente */
-  font-size: 80%;  /* Tamaño de la fuente */
+  font-family: 'itali';  /* Correcto nombre de la fuente */
+  font-size: 250%;  /* Tamaño de la fuente */
   font-weight: 80%;  /* Peso de la fuente */
   background-clip: text;
   -webkit-background-clip: text;
@@ -193,4 +193,10 @@ body {
   border-radius: 50%; /* Hace la imagen redonda */
   border: 2px solid #ccc; /* Borde gris claro */
   margin: 0; /* Elimina márgenes no deseados */
+}
+@font-face {
+  font-family: 'itali';
+  src: url('/fonts/PantonNarrow-Trial-RegularItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }

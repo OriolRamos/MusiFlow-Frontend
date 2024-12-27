@@ -101,9 +101,16 @@
   }
   
   .title {
-    font-size: 1.5rem; /* Tamaño del título */
-    margin-bottom: 20px; /* Espacio entre título y la imagen */
+    font-size: 2rem; /* Tamaño del título */
+    margin-bottom: 10px; /* Espacio entre título y la imagen */
     color: #fcfcfc;
+    font-family: 'itali'
+  }
+  .subtitle{
+    font-size: 1.5rem; /* Tamaño del título */
+    margin-bottom: 5px; /* Espacio entre título y la imagen */
+    color: #fcfcfc;
+    font-family: 'itali'
   }
   
   .imagen-redondeada img {
@@ -116,8 +123,8 @@
   
   
   .title_ {
-    font-family: 'Georgia';  /* Correcto nombre de la fuente */
-    font-size: 80%;  /* Tamaño de la fuente */
+    font-family: 'itali';  /* Correcto nombre de la fuente */
+    font-size: 100%;  /* Tamaño de la fuente */
     font-weight: 80%;  /* Peso de la fuente */
     background-clip: text;
     -webkit-background-clip: text;
@@ -177,4 +184,12 @@
     0% { color: white; }
     50% { color: #ffcc00; }
     100% { color: white; }
+  }
+
+
+  @font-face {
+    font-family: 'itali';
+    src: url('/fonts/PantonNarrow-Trial-RegularItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
   }

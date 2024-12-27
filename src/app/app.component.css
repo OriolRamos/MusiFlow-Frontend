@@ -1,7 +1,7 @@
 /* Aplica un estil arrodonit i brillant al títol */
 .title {
-  font-family: 'Georigia';
-  font-size: 200%;
+  font-family: 'itali';
+  font-size: 230%;
   font-weight: 100%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -13,11 +13,11 @@
 }
 
 .imagen-redondeada img {
-  width: 14%;  /* Redimensiona el ancho de la imagen al 20% del contenedor */
+  width: 13%;  /* Redimensiona el ancho de la imagen al 20% del contenedor */
   height: auto; /* Mantiene la proporción de la imagen, sin distorsionarla */
   border-radius: 50%; /* Esquinas redondeadas */
   border: 2px solid #ccc; /* Borde opcional */
-  margin-top: -6.5%;    /* Superior */
+  margin-top: -6%;    /* Superior */
   margin-left: 3%;
 }
 
@@ -75,4 +75,11 @@
   100% {
     background-position: 200%;
   }
+}
+
+@font-face {
+  font-family: 'itali';
+  src: url('/fonts/PantonNarrow-Trial-RegularItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }

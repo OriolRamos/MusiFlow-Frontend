@@ -10,7 +10,7 @@
 
 .modal-content {
   position: fixed;
-  top: 50%;
+  top: 55%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: rgb(58, 58, 58);
@@ -31,6 +31,7 @@
 }
 
 .form-group {
+  font-family: "itali";
   margin-bottom: 25px;
   text-align: left;
 }
@@ -51,6 +52,8 @@
 }
 
 .submit-button {
+  font-family: "itali";
+
   background: rgb(58, 58, 58);
   color: #fff;
   padding: 10px 15px;
@@ -63,7 +66,7 @@
 }
 
 .register-button{
-
+font-family: "itali";
   background: rgb(58, 58, 58);
   margin-left: 10px;
   color: #fff;
@@ -79,4 +82,23 @@
 }
 .submit-button:hover {
   background: #2563eb;
+}
+
+.title {
+  font-family: 'itali';
+  font-size: 150%;
+  font-weight: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: white;
+  display: inline-block;
+  margin-top: 2.45%;    /* Superior */
+  animation: shine 2s ease-in-out infinite;
+}
+
+@font-face {
+  font-family: 'itali';
+  src: url('/fonts/PantonNarrow-Trial-RegularItalic.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
