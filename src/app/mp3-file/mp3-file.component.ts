@@ -44,17 +44,7 @@ export class Mp3FileComponent implements OnInit {
     this.currentUser = this.userService.getUser();
 
     this.selectedFileName = 'In_Vain.mp3';
-    /*
-    // Cargar el archivo de audio desde el servicio
-    this.musicService.streamAudio(this.selectedFileName).subscribe({
-      next: (data: ArrayBuffer) => {
-        const blob = new Blob([data], { type: 'audio/mp3' });
-        this.audioSource = URL.createObjectURL(blob); // Crear el objeto URL
-      },
-      error: (err) => {
-        console.error('Error al cargar el audio:', err);
-      }
-    });*/
+
   }
 
   getMp3Files(): void {
@@ -116,13 +106,7 @@ export class Mp3FileComponent implements OnInit {
   }
   // Funció per recarregar els fitxers des del backend
   reloadFiles(): void {
-    const audioPlayer = this.audioPlayerRef.nativeElement;
-    audioPlayer.currentTime = 0; // Reinicia el tiempo de reproducción
-    audioPlayer.play().then(() => {
-      console.log('Reproducción reiniciada');
-    }).catch((error) => {
-      console.error('Error al intentar reiniciar el audio:', error);
-    });
+    this.getMp3Files();
   }
 
   deleteFile(file: Mp3File): void {
@@ -138,11 +122,14 @@ export class Mp3FileComponent implements OnInit {
         console.log('Fitxer eliminat: ', response);
         // Elimina el fitxer de la llista local només si el backend ha retornat una resposta d'èxit
         this.mp3Files = this.mp3Files.filter(f => f.id !== file.id);
+        this.reloadFiles();
       },
       (error) => {
         console.error('Error deleting file:', error);
+        this.reloadFiles();
       }
     );
+
   }
 
 
@@ -207,9 +194,11 @@ export class Mp3FileComponent implements OnInit {
           // Reinicia el formulari i l'arxiu seleccionat
           this.uploadForm.reset();
           this.selectedFile = null;
+          this.reloadFiles();
         },
         (error) => {
           console.error('Upload failed:', error);
+          this.reloadFiles();
         }
       );
     } else {
