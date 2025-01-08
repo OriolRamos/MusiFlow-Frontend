@@ -36,10 +36,10 @@ export class Mp3FileService {
     return this.http.post<string>(url, formData);
   }
 
-  deleteMp3File(fileId: string): Observable<void> {
-    const url = `${this.apiUrl}/${fileId}`;
-    return this.http.delete<void>(url);
+  deleteMp3File(formData: FormData): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/delete`, { body: formData });
   }
+
 
 
 }

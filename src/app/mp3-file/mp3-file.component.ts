@@ -107,7 +107,7 @@ export class Mp3FileComponent implements OnInit {
   reproduir(file: Mp3File): void {
     console.log('Reproduint:', file);
 
-    this.musicplayer.playAudio(file.title+'.mp3');
+    this.musicplayer.playAudio(file.id + '.mp3');
   }
 
   // Funció buida per aturar la reproducció d'un fitxer (a implementar)
@@ -128,15 +128,23 @@ export class Mp3FileComponent implements OnInit {
   deleteFile(file: Mp3File): void {
     console.log('Deleting file');
 
+    const formData = new FormData();
+    formData.append('id', file.id);
+    formData.append('user', JSON.stringify(this.currentUser));
 
     // Crida al servei per eliminar la cançó i passar l'ID de l'usuari
-    this.mp3FileService.deleteMp3File(file.id ).subscribe(() => {
-      // Elimina el fitxer de la llista local
-      this.mp3Files = this.mp3Files.filter(f => f.id !== file.id);
-    }, (error) => {
-      console.error('Error deleting file:', error);
-    });
+    this.mp3FileService.deleteMp3File(formData).subscribe(
+      (response) => {
+        console.log('Fitxer eliminat: ', response);
+        // Elimina el fitxer de la llista local només si el backend ha retornat una resposta d'èxit
+        this.mp3Files = this.mp3Files.filter(f => f.id !== file.id);
+      },
+      (error) => {
+        console.error('Error deleting file:', error);
+      }
+    );
   }
+
 
   // Component TS (exemple)
   getUniqueFiles() {
@@ -147,13 +155,9 @@ export class Mp3FileComponent implements OnInit {
         ))
     );
   }
-
-
-
-
   uploadFile(): void {
     console.log('Uploading file');
-    if (this.selectedFile) {
+    if (this.selectedFile) {  // Comprovem si selectedFile no és null ni undefined
       const formData = new FormData();
 
       formData.append('file', this.selectedFile, this.selectedFile.name);
@@ -163,9 +167,44 @@ export class Mp3FileComponent implements OnInit {
       formData.append('year', this.uploadForm.get('year')?.value?.toString() || ''); // Envia "" si és null
       formData.append('genre', this.uploadForm.get('genre')?.value || '');
       formData.append('user', JSON.stringify(this.currentUser));
+
       this.mp3FileService.uploadMp3File(formData).subscribe(
         (file) => {
-          this.mp3Files.push(file);
+          console.log('Fitxer MP3 pujat correctament:', file); // Afegeix una línia per comprovar la resposta al frontend
+          this.mp3Files.push(file); // Afegeix el fitxer pujat a la llista de fitxers
+
+          // Mostra totes les dades de l'objecte Mp3File
+          console.log('Dades del fitxer MP3:', file);
+          console.log('Id: ' + file.id);
+          console.log('Títol: ' + file.title);
+          console.log('Artista: ' + file.artist);
+          console.log('Àlbum: ' + file.album);
+          console.log('Any: ' + file.year);
+          console.log('Gènere: ' + file.genre);
+          console.log('URL del fitxer: ' + file.fileUrl);
+
+          // Aquí canvien el nom del fitxer abans de pujar-lo a Cloudflare utilitzant l'ID
+          const fileId = file.id; // Utilitzem l'ID retornat del backend
+
+          if (this.selectedFile) {  // Comprovem que selectedFile no sigui null
+            const renamedFile = new File([this.selectedFile], `${fileId}.mp3`, { type: this.selectedFile.type });
+
+            // Ara pugem el fitxer renombrat a Cloudflare
+            this.mp3FileService.uploadToCloudflare(renamedFile).subscribe(
+              (response) => {
+                console.log('Fitxer pujat correctament a Cloudflare:', response);
+                this.uploadForm.reset();
+                this.selectedFile = null; // Reiniciem l'estat
+              },
+              (error) => {
+                console.error('Error en pujar a Cloudflare:', error);
+              }
+            );
+          } else {
+            console.error('No selected file.');
+          }
+
+          // Reinicia el formulari i l'arxiu seleccionat
           this.uploadForm.reset();
           this.selectedFile = null;
         },
@@ -173,24 +212,11 @@ export class Mp3FileComponent implements OnInit {
           console.error('Upload failed:', error);
         }
       );
-
-      // Aquí canvien el nom del fitxer abans de pujar-lo a Cloudflare
-      const title = this.uploadForm.get('title')?.value || this.selectedFile.name; // Utilitza el títol del formulari o el nom original
-      const renamedFile = new File([this.selectedFile], `${title}.mp3`, { type: this.selectedFile.type });
-
-      this.mp3FileService.uploadToCloudflare(renamedFile).subscribe(
-        (response) => {
-          console.log('Fitxer pujat correctament a Cloudflare:', response);
-          this.uploadForm.reset();
-          this.selectedFile = null; // Reiniciem l'estat
-        },
-        (error) => {
-          console.error('Error en pujar a Cloudflare:', error);
-        }
-      );
     } else {
       console.error('No file selected.');
     }
   }
+
+
 
 }

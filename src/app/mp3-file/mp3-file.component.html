@@ -4,13 +4,13 @@
     <h2 class="title">{{ (currentUser?.userName) + ",  your songs!" }}</h2>
     <div class="d-flex gap-3">
       <div class="custom-file-container d-flex flex-column gap-3">
-        <div class="d-flex align-items-center gap-2">
-          <span class="text-white">Penja la teva musica</span>
+        <div class="d-flex align-items-center" style="gap: 20px; padding-bottom: 10px;">
+          <span class="text-white" style="width: 100px; text-align: center; margin-right: 20px; padding-right: 10px;">Penja la teva musica</span>
           <input class="btn btn-primary" type="file" (change)="onFileSelected($event)" />
         </div>
         <div class="d-flex align-items-center gap-2">
           <span class="text-white">Recarrega la teva musica</span>
-          <button class="btn btn-secondary" (click)="reloadFiles()">Recarrega</button>
+          <button class="btn btn-primary" (click)="reloadFiles()">Recarrega</button>
         </div>
       </div>
 
@@ -158,6 +158,7 @@
       background-color: #007bff;
       border-color: #007bff;
       color: white;
+      margin-left: 20px;
     }
 
     .btn-primary:hover {
